@@ -44,9 +44,17 @@ def programa():
             quantidade = int(input("Quantidade do produto: "))
             if quantidade.isnumeric == False:
                 n1()
+            else:
+                pass
             preco = float(input("Preço do produto: "))
             if preco.isnumeric==False:
                 n2()
+            else:
+                pass
+            
+            quantidade=int(quantidade)
+            preco=int(preco)
+               
 
             estoque[produto] = [quantidade, preco]
 

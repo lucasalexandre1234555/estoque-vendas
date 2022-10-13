@@ -1,37 +1,45 @@
 from datetime import date
-data=date.today()
-meses=['janeiro', 'fevereiro', 'março', 'abril', 'maio', 'junho', 'julho', 'agosto', 'setembro', 'outubro', 'novembro' , 'dezembro']
-ano, mes, dia=str(data).split("-")
-mes=meses[int(mes)-1]
+
+data = date.today()
+meses = ['janeiro', 'fevereiro', 'março', 'abril', 'maio', 'junho', 'julho', 'agosto', 'setembro', 'outubro',
+         'novembro', 'dezembro']
+ano, mes, dia = str(data).split("-")
+mes = meses[int(mes) - 1]
 print(dia, mes, ano)
 
 for i in meses:
     exec(f"estoque{i}=open(f\"estoque de {i}.txt\",\"a\")")
     exec(f"vendas{i}=open(f\"vendas de {i}.txt\",\"a\")")
 
-
 estoque = {}
 fim = False
 produtos = []
 
 
-def n1():
-    quantidade = int(input("Quantidade do produto: "))
-    preco = float(input("Preço do produto: "))
 
-    estoque[produto] = [quantidade, preco]
+def n1():
+    quantidade = input("Quantidade do produto: ")
+    if quantidade.isnumeric() == False:
+        print("-digite apenas numeros!-")
+        n1()
+    else:
+        pass
+
 
 def n2():
-    preco = float(input("Preço do produto: "))
+    preco = input("Preço do produto: ")
+    if preco.isnumeric() == False:
+        print("-digite apenas numeros!-")
+        n2()
+    else:
+        pass
 
-    estoque[produto] = [quantidade, preco]
 
 def programa():
     global estoque
     global fim
     global produtos
     global mes
-
 
     while not fim:
         print(
@@ -41,20 +49,19 @@ def programa():
         if opcao == "e":
             produto = input("\nNome do produto: ")
             produtos.append(produto)
-            quantidade = int(input("Quantidade do produto: "))
+            quantidade = input("Quantidade do produto: ")
             if quantidade.isnumeric == False:
                 n1()
             else:
                 pass
-            preco = float(input("Preço do produto: "))
-            if preco.isnumeric==False:
+            preco = input("Preço do produto: ")
+            if preco.isnumeric == False:
                 n2()
             else:
                 pass
-            
-            quantidade=int(quantidade)
-            preco=int(preco)
-               
+
+            quantidade = int(quantidade)
+            preco = int(preco)
 
             estoque[produto] = [quantidade, preco]
 
@@ -87,12 +94,12 @@ def programa():
                 qtde = int(input("Quantidade a comprar: "))
                 if qtde <= estoque[produto][0]:  # qtde < estoque
                     preco = qtde * estoque[produto][1]  # preco
-                    estoque[produto][0]=estoque[produto][0]-qtde
-
+                    estoque[produto][0] = estoque[produto][0] - qtde
 
                     for i in meses:
                         if mes == i:
-                            exec(rf"vendas{i}.write(f'produto:{produto}\nvalor R$:{preco}\nestoque:{quantidade-qtde}\n\n')")
+                            exec(
+                                rf"vendas{i}.write(f'produto:{produto}\nvalor R$:{preco}\nestoque:{quantidade - qtde}\n\n')")
 
                     print(f'\nO total da compra deu R${preco}')
                     continuar = input('Deseja continuar? (S/N): ').lower()
@@ -114,4 +121,3 @@ def programa():
 
 
 programa()
-
